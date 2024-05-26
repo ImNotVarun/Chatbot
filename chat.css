@@ -9,31 +9,34 @@ body {
 }
 
 .container {
-    width: 100%;
-    max-width: 600px;
+
+    margin-bottom: -400px;
+    width: 1000px;
+    max-width: 1000px;
+    position: fixed;
+    background-color: rgb(0, 0, 0);
+
 }
 
 .input-container {
-    display: flex;
-    align-items: center;
-    background-color: black;
-    width: auto;
-    padding: 5px;
     position: relative;
-    margin-bottom: 90px;
+
 }
 
-input[type="text"] {
-    flex-grow: 1;
+.input-field {
+    width: calc(100% - 50px);
+    box-sizing: border-box;
     padding: 18px;
     border: none;
     border-radius: 40px;
     background-color: #242222;
     color: rgb(255, 255, 255);
     font-size: 16px;
+    resize: none;
+    z-index: 10;
 }
 
-input[type="text"]:focus {
+.input-field:focus {
     outline-color: white;
     color: white;
 }
@@ -45,19 +48,26 @@ button {
     padding: 10px 15px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
     border-radius: 20px;
     position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 27px;
+    right: 40px;
+
+    transform: translate(-50%, -50%);
+}
+
+.hello {
+    overflow-y: auto;
+    margin-bottom: 60px;
+    position: relative;
 }
 
 .response,
 .error {
-    padding: 10px;
+    padding: 27px;
+    margin-top: 10px;
     margin-bottom: 10px;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .response {
@@ -68,4 +78,29 @@ button {
 .error {
     background-color: #ff4d4d;
     color: white;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skeleton {
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to right, #4c4949 4%, #2d2c2c 25%, #171616 36%);
+    background-size: 1000px 100%;
+    animation: shimmer 1.5s infinite linear;
+}
+
+.response-container {
+    width: 1000px;
+    padding: 20px;
+    z-index: -9;
+    margin-bottom: 50px;
 }
