@@ -92,7 +92,7 @@ button {
 
 .skeleton {
     width: 100%;
-    height: 20px;
+    height: 50px;
     background: linear-gradient(to right, #4c4949 4%, #2d2c2c 25%, #171616 36%);
     background-size: 1000px 100%;
     animation: shimmer 1.5s infinite linear;
@@ -103,4 +103,38 @@ button {
     padding: 20px;
     z-index: -9;
     margin-bottom: 50px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        max-width: 90%;
+        margin-bottom: 0;
+        margin-left: 70px;
+        margin-top: 200px;
+        resize: none;
+
+    }
+
+    .input-field {
+        width: calc(100% - 80px);
+    }
+
+    button {
+        right: 70px;
+    }
+
+    .response-container {
+        width: auto;
+        padding: 10px;
+        margin-left: 20px;
+    }
+
+    .response {
+        padding: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 20px;
+    }
+
 }
