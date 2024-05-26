@@ -1,25 +1,43 @@
-const input = document.querySelector('input[type="text"]');
-const container = document.querySelector('.container');
+const textarea = document.querySelector('.input-field');
+const responseContainer = document.querySelector('.response-container');
+const helloDiv = document.querySelector('.hello');
+const arrowButton = document.querySelector('button.fa-arrow-right');
 
-input.addEventListener('keydown', async (e) => {
-    if (e.key === 'Enter') {
-        const question = input.value.trim();
-        if (question) {
-            input.value = '';
-            const loadingIndicator = document.createElement('div');
-            loadingIndicator.textContent = 'Loading...';
-            container.appendChild(loadingIndicator);
 
-            try {
-                const response = await sendQuestionToGroq(question);
-                container.removeChild(loadingIndicator);
-                displayResponse(response);
-            } catch (error) {
-                container.removeChild(loadingIndicator);
-                displayError(error.message);
-            }
+const handleFormSubmission = async () => {
+    const question = textarea.value.trim();
+    if (question) {
+        textarea.value = '';
+        responseContainer.innerHTML = '';
+        const responseElement = document.createElement('div');
+        responseElement.classList.add('response');
+        const skeleton = document.createElement('div');
+        skeleton.classList.add('skeleton');
+        responseElement.appendChild(skeleton);
+        responseContainer.appendChild(responseElement);
+
+        try {
+            const response = await sendQuestionToGroq(question);
+            responseElement.removeChild(skeleton);
+            responseElement.textContent = response;
+        } catch (error) {
+            responseContainer.removeChild(responseElement);
+            displayError(error.message);
         }
     }
+};
+
+textarea.addEventListener('keydown', async (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        await handleFormSubmission();
+    }
+});
+
+
+arrowButton.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await handleFormSubmission();
 });
 
 async function sendQuestionToGroq(question) {
@@ -60,11 +78,12 @@ function displayResponse(response) {
     responseElement.classList.add('response');
     responseElement.textContent = response;
     container.appendChild(responseElement);
-}
 
+}
 function displayError(errorMessage) {
     const errorElement = document.createElement('div');
     errorElement.classList.add('error');
     errorElement.textContent = `Error: ${errorMessage}`;
     container.appendChild(errorElement);
+
 }
